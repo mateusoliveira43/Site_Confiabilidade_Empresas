@@ -46,16 +46,6 @@ Empresas{% endblock %} {% block corpo %}
     o cálculo do índice de cada empresa, acesse o
     <a href="{% url 'sobre' %}">Sobre do site</a>.
   </p>
-  <!-- <p class="paragrafo">
-    Para adicionar uma empresa ao Banco de Dados ou enviar enviar finanças de
-    uma empresa, faça seu login em
-    <a href="{% url 'login' %}">Login</a>.
-  </p>
-  <p class="paragrafo">
-    Não possui cadastro no site, faça seu cadastro em
-    <a href="{% url 'cadastro' %}">Cadastro</a>, para ter acesso a área
-    administrativa do site.
-  </p> -->
   <hr />
   {% if not user.is_authenticated %} Já é cadastrado no site? Faça seu login:
   <a href="{% url 'login' %}" class="btn btn-primary">Login</a><br /><br />

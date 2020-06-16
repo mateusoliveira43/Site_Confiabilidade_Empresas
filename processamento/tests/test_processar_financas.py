@@ -14,7 +14,6 @@ except:
     raise
 
 import unittest
-# from processar_financas import enviar_notas_fiscais, enviar_debitos
 from processar_financas import enviar_notas_fiscais, enviar_debitos
 
 
