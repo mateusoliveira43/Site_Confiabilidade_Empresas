@@ -21,7 +21,7 @@ Aqui, chamei o ambiente virtual de `meu_ambiente_virtual`. Caso queira nomear de
 Ative seu ambiente virtual:
 
 ```bash
-source meu_ambiente_virtual/bin/python
+source meu_ambiente_virtual/bin/activate
 ```
 
 instale os pacotes necessários:
@@ -33,16 +33,16 @@ pip install -r requirements.txt
 Inicie o servidor:
 
 ```bash
-python3.8 manage.py runserver
+python3.8 manage.py runserver --insecure
 ```
 
-Isso irá abrir uma conexão com a porta 8000. Basta clicar em `http://127.0.0.1:8000/` ou copiar o endereço no seu navegador para abrir o site. Caso tenha algo rodando nessa porta, pode usar outra. Basta, no terminal, usar o comando:
+Isso irá abrir uma conexão com a porta 8000 (`--insecure` irá carregar o CSS e JavaScript). Basta clicar em `http://127.0.0.1:8000/` ou copiar o endereço no seu navegador para abrir o site. Caso tenha algo rodando nessa porta, pode usar outra. Basta, no terminal, usar o comando:
 
 ```bash
-python3.8 manage.py runserver numero_porta
+python3.8 manage.py runserver numero_porta --insecure
 ```
 
-em que `numero_porta` é a porta que deseja utilizar, como por exemplo `8888`.
+em que `numero_porta` é a porta que deseja utilizar, como, por exemplo, `8888`.
 
 Para desligar o servidor:
 
