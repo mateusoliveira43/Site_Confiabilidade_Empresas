@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load static %} {% block titulo %}
+{{parametro.nome}}{% endblock %} {% block corpo %}
+<div class="corpo">
+  {% if parametro.logo %}
+  <div class="Login">
+    <img src="{{ parametro.logo.url }}" style="width: 300px; padding: 30px;" />
+  </div>
+  {% endif%}
+  <h1>{{ parametro.nome }}</h1>
+  <div class="paragrafo">
+    Confiabilidade: {% if parametro.indice > 75%}
+    <b style="color: green;">{{ parametro.indice }}%</b>
+    {%elif parametro.indice < 50%}
+    <b style="color: red;">{{ parametro.indice }}%</b>
+    {%else%}
+    <b>{{ parametro.indice }}%</b>
+    {%endif%}
+  </div>
+  <div class="paragrafo">Ranking: <b>{{parametro.ranking}}ª colocada</b></div>
+  <br />
+  {% if parametro.descricao %}
+  <b>Descrição</b>
+  <p class="paragrafo">
+    {{ parametro.descricao }}
+  </p>
+  {% endif %}
+  <hr />
+  {% if not user.is_authenticated %} Já é cadastrado no site? Faça seu login:
+  <a href="{% url 'login' %}" class="btn btn-primary">Login</a><br /><br />
+  Não é cadastrado no site ainda? Faça seu cadastro:
+  <a href="{% url 'cadastro' %}" class="btn btn-primary">Cadastrar</a>
+  {% else %} Deseja fazer envios? Acesse a área administrativa:
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Área Administrativa</a
+  ><br /><br />
+  Deseja sair? Faça seu logout:
+  <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+  {% endif %}
+</div>
+{% endblock %}

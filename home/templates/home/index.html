@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% load static %} {% block titulo %}Confiabilidade
+Empresas{% endblock %} {% block corpo %}
+<div class="corpo">
+  <h1>Ranking de Confiabilidade de Empresas</h1>
+  {% include 'parciais/_messages.html' %}
+  <p class="paragrafo">
+    Na tabela a seguir, é mostrado o <i>ranking de Confiabilidade</i> de todas
+    as empresas adicionadas no site. As empresas são mostradas em ordem
+    decrescente de confiabilidade, isto é, da mais confiável, para a menos
+    confiável. Para ver mais informações sobre uma determinada empresa, basta
+    clicar em seu nome, na tabela.
+  </p>
+  <div class="col-80">
+    <table>
+      <thead>
+        <tr>
+          <!-- <th>ID</th> -->
+          <th>Nome</th>
+          <th>Confiabilidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for parametro in parametros %}
+        <tr>
+          <!-- <td>{{ parametro.id }}</td> -->
+          <td>
+            <a href="{% url 'ver_empresa' parametro.id %}">
+              {{ parametro.nome }}
+            </a>
+          </td>
+          {% if parametro.indice > 75%}
+          <td style="color: green;">{{ parametro.indice }}%</td>
+          {%elif parametro.indice < 50%}
+          <td style="color: red;">{{ parametro.indice }}%</td>
+          {%else%}
+          <td>{{ parametro.indice }}%</td>
+          {%endif%}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <p class="paragrafo">
+    Para saber mais informações sobre o site, como por exemplo, como é realizado
+    o cálculo do índice de cada empresa, acesse o
+    <a href="{% url 'sobre' %}">Sobre do site</a>.
+  </p>
+  <!-- <p class="paragrafo">
+    Para adicionar uma empresa ao Banco de Dados ou enviar enviar finanças de
+    uma empresa, faça seu login em
+    <a href="{% url 'login' %}">Login</a>.
+  </p>
+  <p class="paragrafo">
+    Não possui cadastro no site, faça seu cadastro em
+    <a href="{% url 'cadastro' %}">Cadastro</a>, para ter acesso a área
+    administrativa do site.
+  </p> -->
+  <hr />
+  {% if not user.is_authenticated %} Já é cadastrado no site? Faça seu login:
+  <a href="{% url 'login' %}" class="btn btn-primary">Login</a><br /><br />
+  Não é cadastrado no site ainda? Faça seu cadastro:
+  <a href="{% url 'cadastro' %}" class="btn btn-primary">Cadastrar</a>
+  {% else %} Deseja fazer envios? Acesse a área administrativa:
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Área Administrativa</a
+  ><br /><br />
+  Deseja sair? Faça seu logout:
+  <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+  {% endif %}
+</div>
+{% endblock %}

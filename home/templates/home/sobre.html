@@ -1,0 +1,107 @@
+{% extends 'base.html' %} {% load static %} {%block titulo%}Sobre{%endblock%}
+{%block corpo %}
+<div class="corpo">
+  <h1>Sobre o site</h1>
+  <p class="paragrafo">
+    O site foi desenvolvido por <b>Mateus Souza Oliveira</b>, como um teste de
+    um processo seletivo. Foi usado principalmente a biblioteca <b>Django</b> do
+    <b>Python</b>, ou seja, além da linguagem Python, também foi utilizado
+    <b>HTML</b>, <b>CSS</b> e <b>JavaScript</b>.
+  </p>
+  <p class="paragrafo">
+    O site possui uma área administrativa (a qual os usuários tem acesso quando
+    estão <b>logados</b>) e um <b>Banco de Dados</b> com as informações das
+    empresas adicionadas. Cada empresa possui os campos:
+  </p>
+  <ul>
+    <li>
+      <b>ID</b>: gerado automaticamente e único, para diferenciar as empresas.
+    </li>
+    <li><b>Nome</b>: inserido pelo usuário, que salva o nome da empresa.</li>
+    <li>
+      <b>Logo</b>: inserido pelo usuário (opcional), que salva o logo da
+      empresa.
+    </li>
+    <li>
+      <b>Descrição</b>: inserido pelo usuário (opcional), que salva uma breve
+      descrição da empresa.
+    </li>
+    <li>
+      <b>Índice</b>: gerado automaticamente com o valor inicial de 50, o qual é
+      atualizado a medida que são enviadas as finaças da empresa.
+    </li>
+  </ul>
+  <p class="paragrafo">
+    Um usuário logado (o qual pode fazer login após ter se <b>cadastrado</b>),
+    pode tanto adicionar uma nova empresa ao Banco de Dados, quanto enviar
+    finanças de uma empresa já adicionada. As finanças devem estar no formato
+    <b>.json</b> da seguinte forma:
+  </p>
+  <pre>  { "nf": 12, "d": 2 }</pre>
+  <p class="paragrafo">
+    Isso será um objeto <b>JSON</b> com chaves <b>nf</b> e <b>d</b>, referentes
+    às notas fiscais e aos débitos da empresa, respectivamente. Os valores devem
+    ser números inteiros positivos ou nulos. Você pode escrever em um bloco de
+    notas simples, bastando salvar com a extensão .json. Caso uma das chaves não
+    esteja no arquivo, ou, um dos valores não seja um número inteiro positivo ou
+    nulo, ocorrerá um erro ao enviar o arquivo.
+  </p>
+  <p class="paragrafo">
+    Após o envio das notas fiscais e débitos, o índice da empresa será
+    atualizado, ou seja, a tabela de rankings na <i>Home</i> do site será
+    atualizada.
+  </p>
+  <h2>Regras do cálculo</h2>
+  <p class="paragrafo">
+    As regras para o cálculo do índice são as seguintes:
+  </p>
+  <ul>
+    <li>
+      As notas fiscais são processadas antes dos débitos.
+    </li>
+    <li>
+      Cada nota fiscal aumenta o índice da empresa em <b>2%</b>, o qual é
+      arrendodado para baixo a partir da primeira casa decimal, antes de
+      qualquer outra operação.
+    </li>
+    <li>
+      Cada débito diminui o índice da empresa em <b>4%</b>, o qual é arrendodado
+      para cima a partir da primeira casa decimal, antes de qualquer outra
+      operação.
+    </li>
+    <li>
+      O índice das empresas varia entre <b>1</b> e <b>100</b>, sendo 1 o valor
+      mais baixo e 100 o valor mais alto.
+    </li>
+  </ul>
+  <h2>Considerações</h2>
+  <p class="paragrafo">
+    Sobre o índice de uma determinada empresa:
+  </p>
+  <ul>
+    <li>
+      O índice sempre será um número inteiro, devido as imposições das regras de
+      cálculo.
+    </li>
+    <li>
+      Apesar do índice poder variar entre 1 e 100, ele nunca ficará abaixo de
+      24, devido as imposições das regras de cálculo.
+    </li>
+    <li>
+      Caso o índice fique menor que 50, ele sempre ficará menor ou igual a 50,
+      devido as imposições das regras de cálculo.
+    </li>
+  </ul>
+  <hr />
+  {% if not user.is_authenticated %} Já é cadastrado no site? Faça seu login:
+  <a href="{% url 'login' %}" class="btn btn-primary">Login</a><br /><br />
+  Não é cadastrado no site ainda? Faça seu cadastro:
+  <a href="{% url 'cadastro' %}" class="btn btn-primary">Cadastrar</a>
+  {% else %} Deseja fazer envios? Acesse a área administrativa:
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Área Administrativa</a
+  ><br /><br />
+  Deseja sair? Faça seu logout:
+  <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+  {% endif %}
+</div>
+{% endblock %}

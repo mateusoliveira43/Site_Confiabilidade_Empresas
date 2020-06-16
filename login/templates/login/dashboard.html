@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% load static %} {%block titulo%} Área
+administrativa: {{user}}{%endblock%} {% block corpo %}
+<div class="corpo">
+  <h1>Bem-vindo a área administrativa do site</h1>
+  {% include 'parciais/_messages.html' %} Você está logado como <i>{{user}}</i>.
+  Deseja sair? Faça seu logout:
+  <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a><br /><br />
+  <p class="paragrafo">
+    Aqui, você pode adicionar uma nova empresaa ao banco de dados (as quais são
+    mostradas na <i>Home</i> do site) ou fazer o envio da quantidade de notas
+    fiscais e débitos de determinada empresa.
+  </p>
+  <hr />
+  <h2>Adicionar Empresa</h2>
+  <p>
+    Adicionar uma empresa ao Banco de Dados:
+    <a href="{% url 'addempresa' %}" class="btn btn-primary"
+      >Adicionar Empresa</a
+    >
+  </p>
+  <br />
+  <hr />
+  <h2>Enviar Finanças</h2>
+  <p>
+    Enviar finanças de uma empresa:
+    <a href="{% url 'enviarfinancas' %}" class="btn btn-primary"
+      >Enviar Finanças</a
+    >
+  </p>
+  <br />
+  <hr />
+  Voltar a Home:
+  <a href="{% url 'home' %}" class="btn btn-primary">Home</a><br />
+</div>
+{% endblock %}

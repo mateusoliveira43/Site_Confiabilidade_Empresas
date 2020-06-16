@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% load static %} {%block titulo%} Enviar
+Finanças{%endblock%} {% block corpo %}
+<div class="corpo">
+  <h1>Enviar Finanças</h1>
+  {% include 'parciais/_messages.html' %}
+  <p class="paragrafo">
+    Para fazer o envio da quantidade de notas fiscais e débitos de determinada
+    empresa, selecione a empresa pelo seu ID, escolha o arquivo de finaças da
+    empresa (<b>.json</b>) e clique em Enviar Finanças.
+  </p>
+  <form
+    action="{% url 'enviarfinancas' %}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="sel-empresa">Selecione a empresa</label>
+      <select name="empresaselecionada" class="form-control" id="sel-empresa">
+        {% for parametro in parametros%}
+        <option value="{{parametro.id}}"
+          >ID: {{parametro.id}} - {{parametro.nome}}</option
+        >
+        {%endfor%}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="sel-arquivo">Selecione um arquivo</label><br />
+      <input
+        name="arquivo"
+        type="file"
+        id="sel-arquivo"
+        class="form-control-file"
+        required="required"
+      />
+    </div>
+    <div class="small">
+      <p>As finanças devem estar no formato <b>.json</b> da seguinte forma:</p>
+      <pre>  { "nf": 12, "d": 2 }</pre>
+      <p>
+        As chaves <b>nf</b> e <b>d</b>, referem-se às notas fiscais e aos
+        débitos da empresa, respectivamente. Os valores devem ser números
+        inteiros positivos ou nulos.
+      </p>
+    </div>
+    <button class="btn btn-primary">Enviar Finanças</button>
+  </form>
+  <hr />
+  Voltar a área administrativa:
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Área Administrativa</a
+  ><br /><br />
+  Deseja sair? Faça seu logout:
+  <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+</div>
+{% endblock %}

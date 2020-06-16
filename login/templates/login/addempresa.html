@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% load static %} {%block titulo%} Adicionar
+Empresa{%endblock%} {% block corpo %}
+<div class="corpo">
+  <h1>Adicionar Empresa</h1>
+  {% include 'parciais/_messages.html' %}
+  <p class="paragrafo">
+    Para adicionar uma empresa ao Banco de Dados, preencha o nome da empresa, e
+    opcionalmente insira um logo (arquivo de imagem) e uma descriação a empresa
+    (ID e índice de confiabilidade são criados automaticamente) e clique em
+    Adicionar Empresa.
+  </p>
+  <form
+    action="{% url 'addempresa' %}"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <div class="form-group">
+      {{form.as_p}}
+    </div>
+    <button class="btn btn-primary">Adicionar Empresa</button>
+  </form>
+  <hr />
+  Voltar a área administrativa:
+  <a href="{% url 'dashboard' %}" class="btn btn-primary">Área Administrativa</a
+  ><br /><br />
+  Deseja sair? Faça seu logout:
+  <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+</div>
+{% endblock %}
